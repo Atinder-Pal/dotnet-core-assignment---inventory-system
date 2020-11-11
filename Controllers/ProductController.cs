@@ -27,13 +27,13 @@ namespace InventorySystemDay2.Controllers
 
             using (InventoryContext context = new InventoryContext())
             {
-                if(string.IsNullOrWhiteSpace(name))
+                if (string.IsNullOrWhiteSpace(name))
                 {
                     exception.ValidationExceptions.Add(new ArgumentNullException(nameof(name), nameof(name) + " is null."));
                 }
                 else
                 {
-                    if(context.Products.Any(x=> x.Name.ToLower() == name.ToLower()))
+                    if (context.Products.Any(x => x.Name.ToLower() == name.ToLower()))
                     {
                         exception.ValidationExceptions.Add(new Exception("Product already exists"));
                     }
@@ -44,17 +44,17 @@ namespace InventorySystemDay2.Controllers
                 }
                 else
                 {
-                    if(!int.TryParse(quantity, out parsedQuantity))
+                    if (!int.TryParse(quantity, out parsedQuantity))
                     {
                         exception.ValidationExceptions.Add(new Exception("Invalid Quantity Value"));
                     }
                     else
                     {
-                        if(parsedQuantity < 0)
+                        if (parsedQuantity < 0)
                         {
                             parsedQuantity = 0;
                         }
-                    }                    
+                    }
                 }
                 if (string.IsNullOrWhiteSpace(discontinued))
                 {
@@ -62,10 +62,10 @@ namespace InventorySystemDay2.Controllers
                 }
                 else
                 {
-                    if(!bool.TryParse(discontinued, out parsedDiscontinued))
+                    if (!bool.TryParse(discontinued, out parsedDiscontinued))
                     {
                         exception.ValidationExceptions.Add(new Exception("Value of Discontinued should be either true or false"));
-                    }                    
+                    }
                 }
                 if (exception.ValidationExceptions.Count > 0)
                 {
@@ -81,13 +81,13 @@ namespace InventorySystemDay2.Controllers
                 context.SaveChanges();
 
                 return newProduct;
-            }                
+            }
         }
 
         public Product DiscontinueProductByID(string productID)
         {
             Product result;
-            int parsedID = 0;            
+            int parsedID = 0;
             ValidationException exception = new ValidationException();
 
             productID = (string.IsNullOrEmpty(productID) || string.IsNullOrWhiteSpace(productID)) ? null : productID;
@@ -133,7 +133,7 @@ namespace InventorySystemDay2.Controllers
         public Product ReceiveProductByID(string productID, string quantity)
         {
             Product result;
-            int parsedID =0,parsedQuantity = 0;
+            int parsedID = 0, parsedQuantity = 0;
             ValidationException exception = new ValidationException();
 
             productID = (string.IsNullOrEmpty(productID) || string.IsNullOrWhiteSpace(productID)) ? null : productID;
@@ -168,7 +168,7 @@ namespace InventorySystemDay2.Controllers
                     {
                         exception.ValidationExceptions.Add(new Exception("Value of Quantity is not valid"));
                     }
-                    else if(parsedQuantity <= 0)
+                    else if (parsedQuantity <= 0)
                     {
                         exception.ValidationExceptions.Add(new Exception("Quantity received can not be negative or zero"));
                     }
@@ -298,13 +298,13 @@ namespace InventorySystemDay2.Controllers
                 else if (!int.TryParse(productID, out parsedID))
                 {
                     exception.ValidationExceptions.Add(new Exception("ID is not valid"));
-                }                    
-                
+                }
+
                 if (exception.ValidationExceptions.Count > 0)
                 {
                     throw exception;
                 }
-                result = context.Products.Where(x => x.ID == parsedID).SingleOrDefault();               
+                result = context.Products.Where(x => x.ID == parsedID).SingleOrDefault();
             }
             return result;
         }

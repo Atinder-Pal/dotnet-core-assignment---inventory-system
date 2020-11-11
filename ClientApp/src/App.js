@@ -4,6 +4,7 @@ import { Layout } from './components/Layout';
 import { Home } from './components/Home';
 import { GetFullInventory } from './components/GetFullInventory';
 import { GetActiveInventory } from './components/GetActiveInventory';
+import { CreateProduct } from './components/CreateProduct';
 import './custom.css'
 
 export default class App extends Component {
@@ -15,6 +16,7 @@ export default class App extends Component {
         <Route exact path='/' component={Home} />
         <Route path='/get-inventory' component={GetFullInventory} />
         <Route path='/get-active-inventory' component={GetActiveInventory} />
+            <Route path='/create-product' component={CreateProduct} />
       </Layout>
     );
   }

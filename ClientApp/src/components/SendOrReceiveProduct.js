@@ -1,7 +1,7 @@
 ﻿import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-function SendProduct(props) {
+function SendOrReceiveProduct(props) {
     //const [currentCount, setCurrentCount] = useState(0);
     const displayName = props.name;
     const [loading, setLoading] = useState(true);
@@ -11,6 +11,7 @@ function SendProduct(props) {
     // Used to store the field values.
     const [quantity, setQuantity] = useState("");
     const [productID, setID] = useState("");
+    const [operation, setOperation] = useState("");
     const [products, setProducts] = useState([]);
     // Used to determine whether we are awaiting a response.
     const [waiting, setWaiting] = useState(false);
@@ -33,19 +34,22 @@ function SendProduct(props) {
             case "productID":
                 setID(event.target.value);
                 break;
+            case "operation":
+                setOperation(event.target.value);
+                break;
         }
     }
 
     function handleSubmit(event) {
         event.preventDefault();
         setWaiting(true);
-
+        
         axios(
             {
                 // Specify the method to use (post/get/put/patch/delete).
                 method: 'PATCH',
                 // Specify the URL to send to.
-                url: 'Inventory/Send',
+                url: 'Inventory/' + operation,
                 // Specify the query parameters (the stuff we used in postman).
                 params: {
                     productID: productID,
@@ -70,12 +74,17 @@ function SendProduct(props) {
     return (
         <div>
            
-            <h1>Send Product</h1>
+            <h1>Send or Receive Product</h1>
 
             <p>{waiting ? "Awaiting response..." : `Response recieved ${statusCode}: ${JSON.stringify(response)}`}</p>
 
             <form onSubmit={handleSubmit}>             
-                
+                <label for="operation">Choose the desired action:</label>
+                <select name="operation" id="operation" onChange={handleFieldChange}>             
+                    <option value="Send"> Send product</option>
+                    <option value="Receive"> Receive Product</option>
+                </select>
+                <br />
                 <label for="productID">Product Name:</label>
                 <select name="productID" id="productID" onChange={handleFieldChange}>
                     {products.map(product =>                        
@@ -94,6 +103,6 @@ function SendProduct(props) {
     );
 }
 
-export { SendProduct };
+export { SendOrReceiveProduct };
 
 

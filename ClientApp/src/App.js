@@ -5,7 +5,7 @@ import { Home } from './components/Home';
 import { GetFullInventory } from './components/GetFullInventory';
 import { GetActiveInventory } from './components/GetActiveInventory';
 import { CreateProduct } from './components/CreateProduct';
-import { SendProduct } from './components/SendProduct';
+import { SendOrReceiveProduct } from './components/SendOrReceiveProduct';
 import './custom.css'
 
 export default class App extends Component {
@@ -18,7 +18,7 @@ export default class App extends Component {
         <Route path='/get-inventory' component={GetFullInventory} />
         <Route path='/get-active-inventory' component={GetActiveInventory} />
         <Route path='/create-product' component={CreateProduct} />
-            <Route path='/send-product' component={SendProduct} />
+            <Route path='/send-receive-product' component={SendOrReceiveProduct} />
       </Layout>
     );
   }

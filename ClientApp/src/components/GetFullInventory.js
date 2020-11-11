@@ -26,7 +26,7 @@ function GetFullInventory(props) {
                             <td>{product.id}</td>
                             <td>{product.name}</td>
                             <td>{product.quantity}</td>
-                            <td>{product.discontinued}</td>
+                            <td>{ (product.discontinued === false )? <span>Active </span> : <span>Discontinued </span>}</td>
                         </tr>
                     )}
                 </tbody>
@@ -61,5 +61,5 @@ function GetFullInventory(props) {
     );
 }
 
-export { GetProducts };
+export { GetFullInventory };
 
